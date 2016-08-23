@@ -6,17 +6,17 @@
       <th>description</th>
     </tr>
   </thead>
-  <% @project.each do |f| %>
-  <tbody>
-    <tr>
-      <td><%= f.title %></td>
-      <td><%= f.description %></td>
-      <td><%= link_to "Edit", edit_project_path(@project) %>
-      <%= link_to "Delete", project_path(@project),
-                              method: :delete,
-                              data: {confirm: "Are you sure?"}%></td>
-    </tr>
-  </tbody>
+  <% @projects.each do |project| %>
+    <tbody>
+      <tr>
+        <td><%= project.title %></td>
+        <td><%= project.description %></td>
+        <td><%= link_to "Edit", edit_project_path(project) %>
+        <%= link_to "Delete", project_path(project),
+                                method: :delete,
+                                data: {confirm: "Are you sure?"}%></td>
+      </tr>
+    </tbody>
   <% end %>
 
 </table>

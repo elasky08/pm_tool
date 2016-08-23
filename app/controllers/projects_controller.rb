@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @project = Project.all
+    @projects = Project.all
   end
 
   def show
@@ -18,10 +18,15 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find params[:id]
+    if @project.update project_params
+      redirect_to project_path(@project)
+    else
+      render :edit
+    end 
   end
 
   def destroy
-    project = Project.find params[:id]
+    @project = Project.find params[:id] # add @ to project
     @project.destroy
     redirect_to projects_path
   end
