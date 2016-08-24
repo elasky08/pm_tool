@@ -24,8 +24,10 @@ ActiveRecord::Schema.define(version: 20160821014736) do
   create_table "discussions", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
+    t.integer  "project_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["project_id"], name: "index_discussions_on_project_id", using: :btree
   end
 
   create_table "projects", force: :cascade do |t|
@@ -42,4 +44,5 @@ ActiveRecord::Schema.define(version: 20160821014736) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "discussions", "projects"
 end

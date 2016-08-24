@@ -2,3 +2,29 @@
 <p>
   <%= @project.description %>
 </p>
+
+<hr>
+<h2>Create Discussion</h2>
+<%= @discussion.errors.full_messages.join(", ") %>
+<%= form_for [@project, @title, @discussion] do |f| %>
+<div>
+  <%= f.label :title %>
+  <%= f.text_area :title %>
+</div>
+<div>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+</div>
+<%= f.submit %>
+<% end %>
+
+<hr>
+
+<h2>Discussions</h2>
+<% @discussions.each do |disc| %>
+    <h4><%= disc.title %></h4>
+    <%= disc.description %>
+    <%= link_to "edit", edit_project_discussion_path(@project, disc) %> |
+    <%= link_to "Delete", [@project, disc], method: :delete, data: {confirm: "Are you sure?"} %>
+  <hr>
+<% end %>

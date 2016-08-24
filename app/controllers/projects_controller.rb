@@ -5,6 +5,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find params[:id]
+    @discussions = @project.discussions
+    @discussion = Discussion.new
   end
 
   def edit
@@ -22,7 +24,7 @@ class ProjectsController < ApplicationController
       redirect_to project_path(@project)
     else
       render :edit
-    end 
+    end
   end
 
   def destroy

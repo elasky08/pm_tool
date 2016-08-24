@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :tasks
   resources :projects do
-    resources :discussions do
+    resources :discussions, only: [:new, :create, :destroy, :edit, :update] do
       resources :comments
     end
   end

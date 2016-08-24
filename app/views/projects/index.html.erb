@@ -9,9 +9,9 @@
   <% @projects.each do |project| %>
     <tbody>
       <tr>
-        <td><%= project.title %></td>
+        <td><%= link_to project.title, project_path(project) %></td>
         <td><%= project.description %></td>
-        <td><%= link_to "Edit", edit_project_path(project) %>
+        <td><%= link_to "Edit", edit_project_path(project) %> 
         <%= link_to "Delete", project_path(project),
                                 method: :delete,
                                 data: {confirm: "Are you sure?"}%></td>
