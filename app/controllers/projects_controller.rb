@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
     @project = Project.find params[:id]
     @discussions = @project.discussions
     @discussion = Discussion.new
+    @comment = Comment.new
   end
 
   def edit

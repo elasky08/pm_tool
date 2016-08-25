@@ -1,0 +1,29 @@
+<h1>Discussion</h1>
+<div>
+<%= @discussion.title %>
+</div>
+<%= @discussion.description%>
+
+<hr>
+
+<h2>Add comment</h2>
+<%= form_for [@discussion, @comment] do |c|%>
+<div>
+  <%= c.label :body %>
+  <%= c.text_area :body %>
+</div>
+<%= c.submit %>
+<% end %>
+
+<hr>
+
+<h2>Comments</h2>
+<% @discussion.comments.each do |com| %>
+<div>
+<%= com.body %>
+
+<%= link_to "edit", edit_discussion_comment_path(@discussion, com) %> |
+<%= link_to "delete", [@discussion, com],method: :delete, data: {confirm: "Are you sure?"} %>
+<hr>
+</div>
+<% end %>

@@ -11,6 +11,12 @@ class DiscussionsController < ApplicationController
     end
   end
 
+  def show
+    @discussion = Discussion.find params[:id]
+    @comments = @discussion.comments
+    @comment = Comment.new
+  end
+
   def destroy
     @project = Project.find params[:project_id]
     @discussion = Discussion.find params[:id]

@@ -24,6 +24,7 @@
 <% @discussions.each do |disc| %>
     <h4><%= disc.title %></h4>
     <%= disc.description %>
+    <%= link_to "add comment", project_discussion_path(disc.project, disc)  %> |
     <%= link_to "edit", edit_project_discussion_path(@project, disc) %> |
     <%= link_to "Delete", [@project, disc], method: :delete, data: {confirm: "Are you sure?"} %>
   <hr>
