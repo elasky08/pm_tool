@@ -2,9 +2,18 @@
 <p>
   <%= @project.description %>
 </p>
+<hr>
+<div>
+  <h3>Tasks</h3>
+  <h4><%= @task.title %></h4>
+  <%= @task.created_at %>
+  <%= link_to "Edit", edit_task_path(@task) %>
+  <%= link_to "Delete", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
+</div>
+<%= link_to "New task", new_project_task_path(@project, @task) %>
 
 <hr>
-<h2>Create Discussion</h2>
+<h3>Create Discussion</h3>
 <%= @discussion.errors.full_messages.join(", ") %>
 <%= form_for [@project, @title, @discussion] do |f| %>
 <div>

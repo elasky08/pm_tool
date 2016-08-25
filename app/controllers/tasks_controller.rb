@@ -36,8 +36,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @project = Project.find params[:id]
     task = Task.find params[:id]
     task.destroy
-    redirect_to tasks_path
+    redirect_to project_path(@project)
   end
 end

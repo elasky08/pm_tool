@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get "/" => "home#index"
   get "/about" => "home#about", as: :about
 
-  resources :tasks
 
   resources :projects do
+    resources :tasks, shallow: true
     resources :discussions
   end
 

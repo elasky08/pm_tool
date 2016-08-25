@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @task = Task.find params[:id]
     @project = Project.find params[:id]
     @discussions = @project.discussions
     @discussion = Discussion.new
@@ -11,12 +12,13 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @task = Task.find params[:id]
     @project = Project.find params[:id]
   end
 
   def new
+    @task = Task.new
     @project = Project.new
-
   end
 
   def update
@@ -29,13 +31,12 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find params[:id] # add @ to project
+    @project = Project.find params[:id]
     @project.destroy
-    redirect_to projects_path
+    redirect_to project_path
   end
 
   def create
-
     @project = Project.new project_params
     if @project.save
       redirect_to project_path(@project), notice: "Project created successfully"
