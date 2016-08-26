@@ -1,8 +1,13 @@
 class DiscussionsController < ApplicationController
   def create
     @project          = Project.find params[:project_id]
-    @discussion       = Discussion.new params.require(:discussion).permit(:description, :title)
-    @discussion.project = @project
+    # @discussion       = @project.discussions.new params.require(:discussion).permit(:description, :title)
+
+    @discussion = Discussion.new params.require(:discussion).permit(:description, :title)
+    @discussion.project_id = @project.id
+
+    @tasks = @project.tasks
+    @discussions = @project.discussions
 
     if @discussion.save
       redirect_to project_path(@project), notice: "discussion created!"

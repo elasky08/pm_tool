@@ -5,17 +5,19 @@
 <hr>
 <div>
   <h3>Tasks</h3>
-  <h4><%= @task.title %></h4>
-  <%= @task.created_at %>
-  <%= link_to "Edit", edit_task_path(@task) %>
-  <%= link_to "Delete", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% @tasks.each do |task| %>
+  <h4><%= task.title %></h4>
+  <%= task.created_at %>
+  <%= link_to "Edit", edit_project_task_path(@project,task) %>
+  <%= link_to "Delete", project_task_path(@project,task), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
 </div>
-<%= link_to "New task", new_project_task_path(@project, @task) %>
+<%= link_to "New task", new_project_task_path(@project) %>
 
 <hr>
 <h3>Create Discussion</h3>
 <%= @discussion.errors.full_messages.join(", ") %>
-<%= form_for [@project, @title, @discussion] do |f| %>
+<%= form_for [@project, @discussion] do |f| %>
 <div>
   <%= f.label :title %>
   <%= f.text_area :title %>

@@ -4,8 +4,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @task = Task.find params[:id]
     @project = Project.find params[:id]
+    @tasks = @project.tasks
     @discussions = @project.discussions
     @discussion = Discussion.new
     @comment = Comment.new

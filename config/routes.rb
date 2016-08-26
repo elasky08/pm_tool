@@ -5,11 +5,11 @@ Rails.application.routes.draw do
 
 
   resources :projects do
-    resources :tasks, shallow: true
+    resources :tasks#, shallow: true
     resources :discussions
   end
 
-  resources :discussions, only: [] do
+  resources :discussions do
     resources :comments #, shallow: true
   end
 

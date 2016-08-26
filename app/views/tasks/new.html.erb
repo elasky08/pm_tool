@@ -7,7 +7,7 @@
 </ul>
 <% end %>
 
-<%= form_for @task do |task| %>
+<%= form_for [@project,@task] do |task| %>
 <div>
   <%= task.label :title %>
   <%= task.text_field :title %>
