@@ -7,10 +7,19 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find params[:id]
-    @tasks = @project.tasks
+    @tasks = @project.tasks.order(:title)
     @discussions = @project.discussions
+
     @discussion = Discussion.new
-    @comment = Comment.new
+    # @discussion = @project.discussions.new
+
+    # if params[:id]
+    #   @task = @project.tasks
+    #   @task.status == false ? @task.status = true : @task.status = false
+    #   @task.save
+    # end
+
+    # @comment = Comment.new
   end
 
   def edit

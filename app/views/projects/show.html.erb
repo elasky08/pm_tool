@@ -7,9 +7,14 @@
   <h3>Tasks</h3>
   <% @tasks.each do |task| %>
   <h4><%= task.title %></h4>
-  <%= task.created_at %>
+  <%# task.updated_at %>
   <%= link_to "Edit", edit_project_task_path(@project,task) %>
   <%= link_to "Delete", project_task_path(@project,task), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% if task.status == false %>
+        <%= link_to "Not Done", project_task_path(@project,task), class: "btn not-done" %>
+      <% else %>
+        <%= link_to "Done", project_task_path(@project,task), class: "btn done" %>
+      <% end %>
   <% end %>
 </div>
 <%= link_to "New task", new_project_task_path(@project) %>

@@ -18,10 +18,18 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find params[:id]
+    @project = Project.find params[:project_id]
+    if params[:id]
+      @task = Task.find params[:id]
+      @task.status == false ? @task.status = true : @task.status = false
+      @task.save
+    end
+    redirect_to project_path(@project)
   end
 
   def index
     @tasks = Task.all
+
   end
 
   def edit
