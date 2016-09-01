@@ -9,4 +9,9 @@ class Project < ApplicationRecord
   # def set_status_default
   #   self.status ||= false
   # end
+
+  def self.search(search_term)
+    where(["title ILIKE ? OR description ILIKE?", "%#{search_term}%", "%#{search_term}%"])
+  end
+
 end

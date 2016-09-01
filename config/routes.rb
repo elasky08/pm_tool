@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
   end
   resources :projects do
+    post "/projects/search" => "projects#search"
     resources :tasks#, shallow: true
     resources :discussions
   end

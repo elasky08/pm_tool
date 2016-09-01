@@ -1,12 +1,20 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  PROJECTS_PER_PAGE = 7
 
   def index
-    @projects = Project.all
+    @projects2 = Project.search(params[:search_term])
+    @projects = @projects2.order(created_at: :desc).
+                           page(params[:page]).
+                           per(PROJECTS_PER_PAGE)
   end
 
   def show
     @project = Project.find params[:id]
+    @projects2 = Project.search(params[:search_term])
+    @projects = @projects2.order(created_at: :desc).
+                           page(params[:page]).
+                           per(PROJECTS_PER_PAGE)
     @tasks = @project.tasks.order(:title)
     @discussions = @project.discussions
 
@@ -59,6 +67,19 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit([:title, :description])
+  end
+
+  def search
+    if params[:search_term]
+      query = "%#{params[:search_term]}%"
+      @projects = Project.where(
+      "title ILIKE :search_term OR description ILIKE :search_term",
+      {search_term: query}
+      )
+    else
+      @projects = Project.all
+    end
+      render :index
   end
 
 end
