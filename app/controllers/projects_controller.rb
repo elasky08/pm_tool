@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_project_and_authorize!, only: [:destroy, :update, :edit]
   PROJECTS_PER_PAGE = 7
 
   def index
@@ -32,7 +33,6 @@ class ProjectsController < ApplicationController
 
   def edit
     @task = Task.find params[:id]
-    @project = Project.find params[:id]
   end
 
   def new
@@ -41,7 +41,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find params[:id]
     if @project.update project_params
       redirect_to project_path(@project)
     else
@@ -50,13 +49,13 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find params[:id]
     @project.destroy
     redirect_to project_path
   end
 
   def create
     @project = Project.new project_params
+    @project.user = current_user
     if @project.save
       redirect_to project_path(@project), notice: "Project created successfully"
     else
@@ -80,6 +79,13 @@ class ProjectsController < ApplicationController
       @projects = Project.all
     end
       render :index
+  end
+
+  private
+
+  def load_project_and_authorize!
+    @project = Project.find params[:id]
+    redirect_to root_path, alert: "access denied" unless @project.user == current_user
   end
 
 end

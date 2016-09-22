@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   validates :title, presence: {message: "his message is from project model1"}
   validates :description, presence: {message: "his message is from project model2"}
 
+  belongs_to :user
   # def set_status_default
   #   self.status ||= false
   # end

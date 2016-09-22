@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authorize!, only: [:destroy, :update, :edit]
+  before_action :load_comment_and_authorize!, only: [:destroy, :update, :edit]
+
   def show
   end
 
@@ -22,12 +25,12 @@ class CommentsController < ApplicationController
 
   def edit
     @discussion = Discussion.find params[:discussion_id]
-    @comment = Comment.find params[:id]
+    # @comment = Comment.find params[:id]
   end
 
   def update
     @discussion = Discussion.find params[:discussion_id]
-    @comment = Comment.find params[:id]
+    # @comment = Comment.find params[:id]
     if @comment.update params.require(:comment).permit([:body])
       redirect_to project_discussion_path(@discussion.project_id, @discussion)
     else
@@ -37,7 +40,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @discussion = Discussion.find params[:discussion_id]
-    @comment = Comment.find params[:id]
+    # @comment = Comment.find params[:id]
     @comment.destroy
     redirect_to project_discussion_path(@discussion.project, @discussion), notice: "comment deleted"
   end
@@ -46,5 +49,10 @@ class CommentsController < ApplicationController
 
   def find_params
     params.require(:comment).permit(:body)
+  end
+
+  def load_comment_and_authorize!
+    @comment = Comment.find params[:id]
+    redirect_to root_path, alert: "access denied" unless @comment.user == current_user
   end
 end
